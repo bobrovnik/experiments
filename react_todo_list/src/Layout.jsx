@@ -82,8 +82,8 @@ class Layout extends React.Component {
                 }, this)}
             </ol>
             <div ref="itemMenu" className={menuClassName.join(' ')}>
-                <span>Finish</span>
-                <span>Remove</span>
+                <span className="icon-checkmark2 button"></span>
+                <span className="icon-bin2 button"></span>
             </div>
         </div>
     }

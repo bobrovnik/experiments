@@ -1,26 +1,12 @@
 import React from 'react';
+import store from './ItemStore.jsx';
 
 class Layout extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            activeListItemId: null,
-            itemMenuClass: 'hiddenMenu',
-            itemsList: [
-                {
-                    id: 1,
-                    title: 'My first Event'
-                },
-                {
-                    id: 2,
-                    title: 'My second Event'
-                },
-                {
-                    id: 3,
-                    title: 'My third Event'
-                }
-            ]
+            activeListItemId: null
         };
     }
 
@@ -34,22 +20,17 @@ class Layout extends React.Component {
         var inputNode = this.refs.addItemInput;
 
         if (inputNode.value) {
-            this.state.itemsList.push({
-                id: 'id' + parseInt(Math.random() * 100, 10),
-                title: inputNode.value
-            });
+            store.add(inputNode.value);
 
             inputNode.value = '';
             inputNode.focus();
 
-            this.setState({
-                itemsList: this.state.itemsList
-            });
+            this.setState({});
         }
     }
 
     itemMenuClickHandler(e) {
-        var recId = parseInt(e.target.dataset.itemid, 10);
+        var recId = e.target.dataset.itemid;
         if (recId === this.state.activeListItemId) {
             recId = null;
         }
@@ -57,6 +38,18 @@ class Layout extends React.Component {
         this.setState({
             activeListItemId: recId
         });
+    }
+
+    componentDidMount() {
+        store.addChangeListener(this.onStoreChange);
+    }
+
+    componentWillUnmount() {
+        store.removeChangeListener(this.onStoreChange);
+    }
+
+    onStoreChange() {
+        this.setState();
     }
 
     render() {
@@ -71,7 +64,7 @@ class Layout extends React.Component {
             <input className="todo-item-field" placeholder="Enter you ToDo" ref="addItemInput" onKeyPress={this.keyPressHandler.bind(this)}/>
             <button className="button add-new" onClick={this.clickHandler.bind(this)} title="Add New"><span className="icon-plus"></span></button>
             <ol className="todo-list">
-                {this.state.itemsList.map(function (item, i) {
+                {store.getAll().map(function (item, i) {
                     let className = ['todo-item'];
 
                     if (this.state.activeListItemId === item.id) {

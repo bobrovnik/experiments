@@ -19,5 +19,13 @@ module.exports = {
                 loaders: ["style", "css", "sass"]
             }
         ]
-    }
+    }/*,
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+            minimize: true,
+            compress: {
+                warnings: false
+            }
+        })
+    ]*/
 };

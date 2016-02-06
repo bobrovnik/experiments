@@ -5,21 +5,29 @@ class ItemStore extends EventEmitter {
     constructor() {
         super();
 
-        this.activeRecord = null;
+        this.selectedRecord = null;
         this.CHANGE_EVENT = 'change';
         this.ACTIVATE_EVENT = 'activate';
+
+        this.STATUS_ACTIVE = 1;
+        this.STATUS_CLOSED = 2;
+        this.STATUS_DELETED = 2;
+
         this.collection = [
             {
                 id: 'id' + 1,
-                title: 'My first Event'
+                title: 'My first Event',
+                status: this.STATUS_ACTIVE
             },
             {
                 id: 'id' + 2,
-                title: 'My second Event'
+                title: 'My second Event',
+                status: this.STATUS_ACTIVE
             },
             {
                 id: 'id' + 3,
-                title: 'My third Event'
+                title: 'My third Event',
+                status: this.STATUS_ACTIVE
             }
         ];
     }
@@ -47,7 +55,8 @@ class ItemStore extends EventEmitter {
     add(title) {
         this.collection.push({
             id: 'id' + parseInt(Math.random() * 10000, 10),
-            title: title
+            title: title,
+            status: this.STATUS_ACTIVE
         });
 
         this.emitChange();
@@ -57,31 +66,52 @@ class ItemStore extends EventEmitter {
         return this.collection;
     }
 
-    setActive(record) {
-        if (typeof record === 'string') {
-            record = this.getRecordById(record);
-        }
+    getActiveRecordsList() {
+        return _.filter(this.collection, {status: this.STATUS_ACTIVE});
+    }
 
-        this.activeRecord = record;
+    setSelected(record) {
+        record = this.getRecordById(record);
 
-        //this.emit(this.ACTIVATE_EVENT, this.activeRecord);
-        this.emit(this.ACTIVATE_EVENT, this.activeRecord);
+        this.selectedRecord = record;
+
+        this.emit(this.ACTIVATE_EVENT, this.selectedRecord);
     }
 
     getRecordById(id) {
+        if (typeof id === 'object') {
+            return id;
+        }
+
         return _.findLast(this.collection, function (item) {
             return item.id === id;
         });
     }
 
-    getActive() {
-        return this.activeRecord;
+    getSelectedRecord() {
+        return this.selectedRecord;
     }
 
-    getActiveRecordId() {
-        var rec = this.getActive();
+    getSelectedRecordId() {
+        var rec = this.getSelectedRecord();
 
         return rec ? rec.id : null;
+    }
+
+    setRecordStatusClosed(record) {
+        record = this.getRecordById(record);
+
+        record.status = this.STATUS_CLOSED;
+
+        this.emitChange();
+    }
+
+    setRecordStatusDeleted(record) {
+        record = this.getRecordById(record);
+
+        record.status = this.STATUS_DELETED;
+
+        this.emitChange();
     }
 }
 

@@ -1,39 +1,15 @@
 import React from 'react';
 import store from './ItemStore.jsx';
+import InputButton from './Input.jsx';
 
 class Layout extends React.Component {
-    constructor() {
-        super();
-
-        this.state = {};
-    }
-
-    keyPressHandler(e) {
-        if (e.key === 'Enter') {
-            this.clickHandler();
-        }
-    }
-
-    clickHandler() {
-        var inputNode = this.refs.addItemInput;
-
-        if (inputNode.value) {
-            store.add(inputNode.value);
-
-            inputNode.value = '';
-            inputNode.focus();
-
-            this.setState({});
-        }
-    }
-
     itemMenuClickHandler(e) {
         var recId = e.target.dataset.itemid;
-        if (recId === store.getActiveRecordId()) {
+        if (recId === store.getSelectedRecordId()) {
             recId = null;
         }
 
-        store.setActive(recId);
+        store.setSelected(recId);
     }
 
     componentDidMount() {
@@ -50,24 +26,31 @@ class Layout extends React.Component {
         this.setState({});
     }
 
+    markRecordAsClosed() {
+        store.setRecordStatusClosed(store.getSelectedRecord());
+        store.setSelected(null);
+    }
+
+    markRecordAsDeleted() {
+        store.setRecordStatusDeleted(store.getSelectedRecord());
+        store.setSelected(null);
+    }
+
     render() {
         var me = this,
             menuClassName = ['todo-menu'];
 
-        if (store.getActiveRecordId()) {
+        if (store.getSelectedRecordId()) {
             menuClassName.push('active');
         }
 
         return <div className="main-wrapper">
-            <div className="todo-form">
-                <input className="todo-item-field" placeholder="Enter your ToDo" ref="addItemInput" onKeyPress={this.keyPressHandler.bind(this)}/>
-                <button className="button add-new" onClick={this.clickHandler.bind(this)} title="Add New"><span className="icon-plus"></span></button>
-            </div>
+            <InputButton/>
             <ol className="todo-list">
-                {store.getAll().map(function (item, i) {
+                {store.getActiveRecordsList().map(function (item, i) {
                     let className = ['todo-item'];
 
-                    if (store.getActiveRecordId() === item.id) {
+                    if (store.getSelectedRecordId() === item.id) {
                         className.push('active');
                     }
 
@@ -80,8 +63,8 @@ class Layout extends React.Component {
                 }, this)}
             </ol>
             <div ref="itemMenu" className={menuClassName.join(' ')}>
-                <span className="icon-checkmark2 button"></span>
-                <span className="icon-bin2 button"></span>
+                <span className="icon-checkmark2 button" onClick={this.markRecordAsClosed.bind(this)}></span>
+                <span className="icon-bin2 button" onClick={this.markRecordAsDeleted.bind(this)}></span>
             </div>
         </div>
     }

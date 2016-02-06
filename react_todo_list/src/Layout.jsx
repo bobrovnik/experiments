@@ -60,9 +60,11 @@ class Layout extends React.Component {
             menuClassName.push('active');
         }
 
-        return <div>
-            <input className="todo-item-field" placeholder="Enter you ToDo" ref="addItemInput" onKeyPress={this.keyPressHandler.bind(this)}/>
-            <button className="button add-new" onClick={this.clickHandler.bind(this)} title="Add New"><span className="icon-plus"></span></button>
+        return <div className="main-wrapper">
+            <div className="todo-form">
+                <input className="todo-item-field" placeholder="Enter you ToDo" ref="addItemInput" onKeyPress={this.keyPressHandler.bind(this)}/>
+                <button className="button add-new" onClick={this.clickHandler.bind(this)} title="Add New"><span className="icon-plus"></span></button>
+            </div>
             <ol className="todo-list">
                 {store.getAll().map(function (item, i) {
                     let className = ['todo-item'];

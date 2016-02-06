@@ -1,4 +1,5 @@
 $main-color: #E2F177;
+$menu-height: 50px;
 
 body {
     font-family: 'Open Sans', sans-serif;
@@ -7,6 +8,12 @@ body {
     margin: 0;
     padding: 0;
     width: 100%;
+}
+
+html,
+body,
+#container,
+.main-wrapper {
     height: 100%;
 }
 
@@ -17,7 +24,14 @@ button {
 
 #container {
     margin: 0 auto;
-    width: 100%;
+}
+
+.main-wrapper {
+    position: relative;
+    padding-bottom: $menu-height;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .testClass12 {
@@ -25,12 +39,21 @@ button {
 }
 
 .todo-menu {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: $menu-height;
     display: none;
     background: darken($main-color, 15%);
 
     &.active {
         display: block;
     }
+}
+
+.todo-form {
+    width: 95%;
+    margin: 0 auto;
 }
 
 .todo-item-field {
@@ -41,10 +64,45 @@ button {
     background: transparent;
     padding: 10px;
     font-size: inherit;
+    width: 235px;
+    
+     &::-webkit-input-placeholder {
+        color: darken($main-color, 30%);
+    }
+    
+    &::-moz-placeholder {
+        color: darken($main-color, 15%);
+    }
+    
+    &:-ms-input-placeholder {
+        color: darken($main-color, 15%);
+    }
+    
+    &input:-moz-placeholder {
+        color: darken($main-color, 15%);    
+    }
+    
+    &:focus {
+         &::-webkit-input-placeholder {
+            color: transparent;
+        }
+        
+        &::-moz-placeholder {
+            color: transparent;
+        }
+        
+        &:-ms-input-placeholder {
+            color: transparent;
+        }
+        
+        &input:-moz-placeholder {
+            color: transparent;    
+        }
+    }
 }
 
 .button {
-    background: rgba(250,250,250, .5);
+    background: darken($main-color, 25%);
     display: inline-block;
     border: 0;
     font-size: 10px;
@@ -53,7 +111,7 @@ button {
     &:hover,
     &:focus,
     &:active {
-        background: rgba(250,250,250, .8);
+        background: darken($main-color, 30%);
     }
 }
 
@@ -64,9 +122,18 @@ button {
 }
 
 .todo-list {
-    padding: 0 0 0 30px;
+    padding: 0;
+    list-style-position: inside;
     
     .todo-item {
-        margin-bottom: 10px;
+        padding: 10px;
+        
+        &:nth-child(even) {
+            background: rgba(250,250,250, .2);
+        }
+        
+        &.active {
+            background: darken($main-color, 30%);
+        }
     }
 }

@@ -5,9 +5,7 @@ class Layout extends React.Component {
     constructor() {
         super();
 
-        this.state = {
-            activeListItemId: null
-        };
+        this.state = {};
     }
 
     keyPressHandler(e) {
@@ -62,7 +60,7 @@ class Layout extends React.Component {
 
         return <div className="main-wrapper">
             <div className="todo-form">
-                <input className="todo-item-field" placeholder="Enter you ToDo" ref="addItemInput" onKeyPress={this.keyPressHandler.bind(this)}/>
+                <input className="todo-item-field" placeholder="Enter your ToDo" ref="addItemInput" onKeyPress={this.keyPressHandler.bind(this)}/>
                 <button className="button add-new" onClick={this.clickHandler.bind(this)} title="Add New"><span className="icon-plus"></span></button>
             </div>
             <ol className="todo-list">

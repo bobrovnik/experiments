@@ -53,10 +53,10 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	//require("./sass/styles.scss");
-	__webpack_require__(160);
+	__webpack_require__(159);
 
 	var React = __webpack_require__(2);
-	var ReactDOM = __webpack_require__(159);
+	var ReactDOM = __webpack_require__(163);
 
 	ReactDOM.render(React.createElement(_Layout2.default, null), document.getElementById('container'));
 
@@ -19709,22 +19709,13 @@
 /* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	module.exports = __webpack_require__(4);
-
-
-/***/ },
-/* 160 */
-/***/ function(module, exports, __webpack_require__) {
-
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(161);
+	var content = __webpack_require__(160);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(163)(content, {});
+	var update = __webpack_require__(162)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -19741,21 +19732,21 @@
 	}
 
 /***/ },
-/* 161 */
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(162)();
+	exports = module.exports = __webpack_require__(161)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "body {\n  background: yellow; }\n\n.testClass12 {\n  color: blue; }\n", ""]);
+	exports.push([module.id, "body {\n  background: yellowgreen; }\n\n.testClass12 {\n  color: blue; }\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 162 */
+/* 161 */
 /***/ function(module, exports) {
 
 	/*
@@ -19811,7 +19802,7 @@
 
 
 /***/ },
-/* 163 */
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -20062,6 +20053,15 @@
 		if(oldSrc)
 			URL.revokeObjectURL(oldSrc);
 	}
+
+
+/***/ },
+/* 163 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = __webpack_require__(4);
 
 
 /***/ }

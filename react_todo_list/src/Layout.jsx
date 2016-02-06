@@ -66,9 +66,9 @@ class Layout extends React.Component {
         var me = this;
 
         return <div>
-            <input ref="addItemInput" onKeyPress={this.keyPressHandler.bind(this)}/>
-            <button onClick={this.clickHandler.bind(this)}>Add New</button>
-            <ol>
+            <input className="todo-item-field" placeholder="Enter you ToDo" ref="addItemInput" onKeyPress={this.keyPressHandler.bind(this)}/>
+            <button className="button add-new" onClick={this.clickHandler.bind(this)} title="Add New"><span className="icon-plus"></span></button>
+            <ol className="todo-list">
                 {this.state.itemsList.map(function (item, i) {
                     return <li
                         key={item.id}

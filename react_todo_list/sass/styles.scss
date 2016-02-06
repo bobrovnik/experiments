@@ -1,15 +1,75 @@
+$main-color: #E2F177;
+
 body {
-  //background: yellowgreen;
+    font-family: 'Open Sans', sans-serif;
+    background: $main-color;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+input,
+button {
+    outline: none;
+}
+
+#container {
+    margin: 0 auto;
+    width: 100%;
 }
 
 .testClass12 {
-  color: blue;
+    color: blue;
 }
 
 .hiddenMenu {
-  display: none;
+    display: none;
 }
 
 .visibleMenu {
-  display: block;
+    display: block;
+}
+
+.todo-item-field {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    border-bottom: 1px solid #000;
+    background: transparent;
+    padding: 10px;
+    font-size: inherit;
+}
+
+.button {
+    background: rgba(250,250,250, .5);
+    display: inline-block;
+    border: 0;
+    font-size: 10px;
+    text-align: center;
+    
+    &:hover,
+    &:focus,
+    &:active {
+        background: rgba(250,250,250, .8);
+    }
+}
+
+.add-new {
+    width: 34px;
+    height: 34px;
+    margin-left: 10px;
+}
+
+.todo-list {
+    padding: 0 0 0 30px;
+    
+    .todo-item {
+        margin-bottom: 10px;
+    }
+}
+
+.visibleMenu {
+    background: darken($main-color, 15%);
 }

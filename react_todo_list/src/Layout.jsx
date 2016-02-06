@@ -31,32 +31,32 @@ class Layout extends React.Component {
 
     itemMenuClickHandler(e) {
         var recId = e.target.dataset.itemid;
-        if (recId === this.state.activeListItemId) {
+        if (recId === store.getActiveRecordId()) {
             recId = null;
         }
 
-        this.setState({
-            activeListItemId: recId
-        });
+        store.setActive(recId);
     }
 
     componentDidMount() {
-        store.addChangeListener(this.onStoreChange);
+        store.addChangeListener(this.onStoreChange, this);
+        store.addActiveListener(this.onStoreChange, this);
     }
 
     componentWillUnmount() {
         store.removeChangeListener(this.onStoreChange);
+        store.removeActiveListener(this.onStoreChange);
     }
 
     onStoreChange() {
-        this.setState();
+        this.setState({});
     }
 
     render() {
         var me = this,
             menuClassName = ['todo-menu'];
 
-        if (this.state.activeListItemId) {
+        if (store.getActiveRecordId()) {
             menuClassName.push('active');
         }
 
@@ -69,7 +69,7 @@ class Layout extends React.Component {
                 {store.getAll().map(function (item, i) {
                     let className = ['todo-item'];
 
-                    if (this.state.activeListItemId === item.id) {
+                    if (store.getActiveRecordId() === item.id) {
                         className.push('active');
                     }
 

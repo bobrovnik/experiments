@@ -7,4 +7,11 @@ var ReactDOM = require('react-dom');
 import Layout from './src/Layout.jsx';
 
 
-ReactDOM.render(<Layout></Layout>, document.getElementById('container'));
+ReactDOM.render(
+    <Layout
+        className="aaaaaaaa"
+        test12="11111"
+    >
+    </Layout>,
+    document.getElementById('container')
+);

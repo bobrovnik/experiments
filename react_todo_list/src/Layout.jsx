@@ -1,10 +1,4 @@
 import React from 'react';
-import {EventEmitter} from 'fbemitter';
-//import store from './src/ItemStore.jsx';
-
-//import store from 'ItemStore';
-//
-//var store = require('ItemStore.jsx');
 
 class Layout extends React.Component {
     constructor() {
@@ -30,13 +24,13 @@ class Layout extends React.Component {
         };
     }
 
-    addInputKeyPressHandler(e) {
+    keyPressHandler(e) {
         if (e.key === 'Enter') {
-            this.addItemHandler();
+            this.clickHandler();
         }
     }
 
-    addItemHandler() {
+    clickHandler() {
         var inputNode = this.refs.addItemInput;
 
         if (inputNode.value) {
@@ -56,7 +50,6 @@ class Layout extends React.Component {
 
     itemMenuClickHandler(e) {
         var recId = parseInt(e.target.dataset.itemid, 10);
-
         if (recId === this.state.activeListItemId) {
             recId = null;
         }
@@ -68,16 +61,16 @@ class Layout extends React.Component {
 
     render() {
         var me = this,
-            menuClassName = ['item-menu'];
+            menuClassName = ['todo-menu'];
 
         if (this.state.activeListItemId) {
-            menuClassName.push('visible');
+            menuClassName.push('active');
         }
 
         return <div>
-            <input ref="addItemInput" onKeyPress={this.addInputKeyPressHandler.bind(this)}/>
-            <button onClick={this.addItemHandler.bind(this)}>Add New</button>
-            <ol>
+            <input className="todo-item-field" placeholder="Enter you ToDo" ref="addItemInput" onKeyPress={this.keyPressHandler.bind(this)}/>
+            <button className="button add-new" onClick={this.clickHandler.bind(this)} title="Add New"><span className="icon-plus"></span></button>
+            <ol className="todo-list">
                 {this.state.itemsList.map(function (item, i) {
                     let className = ['todo-item'];
 

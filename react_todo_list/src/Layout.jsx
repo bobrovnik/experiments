@@ -1,11 +1,17 @@
 import React from 'react';
+import {EventEmitter} from 'fbemitter';
+//import store from './src/ItemStore.jsx';
+
+//import store from 'ItemStore';
+//
+//var store = require('ItemStore.jsx');
 
 class Layout extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            activeListItem: null,
+            activeListItemId: null,
             itemMenuClass: 'hiddenMenu',
             itemsList: [
                 {
@@ -24,13 +30,13 @@ class Layout extends React.Component {
         };
     }
 
-    keyPressHandler(e) {
+    addInputKeyPressHandler(e) {
         if (e.key === 'Enter') {
-            this.clickHandler();
+            this.addItemHandler();
         }
     }
 
-    clickHandler() {
+    addItemHandler() {
         var inputNode = this.refs.addItemInput;
 
         if (inputNode.value) {
@@ -49,36 +55,45 @@ class Layout extends React.Component {
     }
 
     itemMenuClickHandler(e) {
-        console.log(e.target.dataset.itemid);
+        var recId = parseInt(e.target.dataset.itemid, 10);
 
-        var recId = e.target.dataset.itemid;
-
-        if (recId === this.state.activeListItem) {
+        if (recId === this.state.activeListItemId) {
             recId = null;
         }
 
         this.setState({
-            activeListItem: recId
+            activeListItemId: recId
         });
     }
 
     render() {
-        var me = this;
+        var me = this,
+            menuClassName = ['item-menu'];
+
+        if (this.state.activeListItemId) {
+            menuClassName.push('visible');
+        }
 
         return <div>
-            <input ref="addItemInput" onKeyPress={this.keyPressHandler.bind(this)}/>
-            <button onClick={this.clickHandler.bind(this)}>Add New</button>
+            <input ref="addItemInput" onKeyPress={this.addInputKeyPressHandler.bind(this)}/>
+            <button onClick={this.addItemHandler.bind(this)}>Add New</button>
             <ol>
                 {this.state.itemsList.map(function (item, i) {
+                    let className = ['todo-item'];
+
+                    if (this.state.activeListItemId === item.id) {
+                        className.push('active');
+                    }
+
                     return <li
                         key={item.id}
                         data-itemid={item.id}
-                        className="todo-item {this.state.activeListItem}" onClick={this.itemMenuClickHandler.bind(this)}>
+                        className={className.join(' ')} onClick={this.itemMenuClickHandler.bind(this)}>
                         {item.title}
                     </li>
                 }, this)}
             </ol>
-            <div ref="itemMenu" className={this.state.activeListItem ? 'visibleMenu' : 'hiddenMenu'}>
+            <div ref="itemMenu" className={menuClassName.join(' ')}>
                 <span>Finish</span>
                 <span>Remove</span>
             </div>

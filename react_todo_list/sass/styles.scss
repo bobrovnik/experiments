@@ -6,10 +6,10 @@ body {
   color: blue;
 }
 
-.hiddenMenu {
+.item-menu {
   display: none;
 }
 
-.visibleMenu {
+.item-menu.visible {
   display: block;
 }

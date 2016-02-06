@@ -5,6 +5,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 import Layout from './src/Layout.jsx';
+import store from './src/ItemStore.jsx';
 
 
 ReactDOM.render(

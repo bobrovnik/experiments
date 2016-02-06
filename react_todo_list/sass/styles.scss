@@ -1,7 +1,15 @@
 body {
-  background: yellowgreen;
+  //background: yellowgreen;
 }
 
 .testClass12 {
   color: blue;
+}
+
+.hiddenMenu {
+  display: none;
+}
+
+.visibleMenu {
+  display: block;
 }

@@ -5,11 +5,20 @@ class Layout extends React.Component {
         super();
 
         this.state = {
-            text: 'Text',
+            activeListItem: null,
+            itemMenuClass: 'hiddenMenu',
             itemsList: [
                 {
-                    id: 111,
+                    id: 1,
                     title: 'My first Event'
+                },
+                {
+                    id: 2,
+                    title: 'My second Event'
+                },
+                {
+                    id: 3,
+                    title: 'My third Event'
                 }
             ]
         };
@@ -39,15 +48,40 @@ class Layout extends React.Component {
         }
     }
 
+    itemMenuClickHandler(e) {
+        console.log(e.target.dataset.itemid);
+
+        var recId = e.target.dataset.itemid;
+
+        if (recId === this.state.activeListItem) {
+            recId = null;
+        }
+
+        this.setState({
+            activeListItem: recId
+        });
+    }
+
     render() {
+        var me = this;
+
         return <div>
             <input ref="addItemInput" onKeyPress={this.keyPressHandler.bind(this)}/>
             <button onClick={this.clickHandler.bind(this)}>Add New</button>
             <ol>
-            {this.state.itemsList.map(function(item, i) {
-                return <li key={item.id} className="todo-item">{item.title} <span> x</span></li>
-            })}
+                {this.state.itemsList.map(function (item, i) {
+                    return <li
+                        key={item.id}
+                        data-itemid={item.id}
+                        className="todo-item {this.state.activeListItem}" onClick={this.itemMenuClickHandler.bind(this)}>
+                        {item.title}
+                    </li>
+                }, this)}
             </ol>
+            <div ref="itemMenu" className={this.state.activeListItem ? 'visibleMenu' : 'hiddenMenu'}>
+                <span>Finish</span>
+                <span>Remove</span>
+            </div>
         </div>
     }
 }

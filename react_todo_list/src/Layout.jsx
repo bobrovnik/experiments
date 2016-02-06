@@ -45,7 +45,7 @@ class Layout extends React.Component {
             <button onClick={this.clickHandler.bind(this)}>Add New</button>
             <ol>
             {this.state.itemsList.map(function(item, i) {
-                return <li className="todo-item">{item} <span> x</span></li>
+                return <li key={item.id} className="todo-item">{item.title} <span> x</span></li>
             })}
             </ol>
         </div>

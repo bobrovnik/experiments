@@ -1,0 +1,11 @@
+body {
+    margin: 0px;
+}
+
+.navigation {
+    padding: 10px;
+}
+
+#myCanvas {
+    border:1px solid #000000;
+}

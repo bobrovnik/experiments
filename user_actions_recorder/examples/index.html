@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../resources/css/styles.css"/>
+    <script src="../src/index.js"></script>
+</head>
+<body>
+<!--<div id="aaaaaaaa" style="background: black; position: absolute;">-->
+    <!--aaaaa-->
+<!--</div>-->
+
+<div class="test-img"></div>
+<button id="player-start">
+    Play
+</button>
+<div id="lipsum">
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere posuere mollis. Suspendisse vel varius
+        ligula, nec dignissim turpis. Proin sodales ipsum scelerisque risus semper, eget laoreet nisl suscipit. Sed
+        maximus sed lacus quis tempor. Aliquam pellentesque sapien vitae risus pretium rutrum. Nunc id arcu non diam
+        placerat posuere vel semper quam. Cras auctor tristique odio at condimentum. Mauris ultrices, magna eget
+        fermentum vehicula, quam lectus laoreet leo, ut luctus nisi ligula non mauris. Fusce in laoreet risus, et
+        sagittis nibh.
+    </p>
+    <p>
+        Mauris vel nisi a nisi faucibus congue sit amet non risus. Praesent venenatis ornare enim et commodo. Nunc
+        tempus lectus tincidunt est vehicula finibus. Sed leo est, rutrum aliquet tellus eu, auctor tristique metus. Sed
+        condimentum posuere odio nec elementum. Vestibulum consectetur neque molestie quam malesuada gravida. Sed
+        eleifend sodales lacus, at elementum nulla dictum in. Aenean quam magna, semper sed tincidunt et, tincidunt a
+        lacus. Nam imperdiet pulvinar posuere. Fusce et felis bibendum, eleifend libero in, pulvinar tellus. Integer
+        eleifend urna quis pretium sollicitudin. Suspendisse porttitor turpis non ligula pulvinar, sit amet euismod quam
+        sollicitudin. Nunc eget porttitor libero. Integer quis faucibus tortor. Vivamus luctus est at facilisis laoreet.
+    </p>
+    <p>
+        Etiam aliquet, ante eget venenatis tincidunt, massa eros mattis orci, ut suscipit augue mi nec neque. Vestibulum
+        ultrices orci lacus, vel feugiat velit facilisis sed. Aliquam eros arcu, tincidunt vitae posuere eget,
+        pellentesque eu enim. Ut quam risus, dignissim ut hendrerit vitae, fermentum nec sapien. Nunc vitae placerat
+        elit. Sed magna tellus, fringilla a risus vitae, viverra aliquet arcu. Vivamus vel lectus porttitor, molestie
+        turpis vulputate, dapibus risus. Mauris ac tincidunt tortor. Nullam at tempor dui, vel tincidunt metus. In
+        faucibus convallis convallis. Nam ut mauris odio. Nulla sodales accumsan mi ac vulputate. Ut volutpat eu velit
+        et cursus. Donec ut sollicitudin tellus.
+    </p>
+    <p>
+        Etiam fermentum tincidunt nisi eget scelerisque. Nunc vehicula cursus vulputate. Fusce elit felis, eleifend sit
+        amet gravida at, fermentum ac quam. Suspendisse aliquet mattis enim, eget rhoncus tellus posuere a. Sed viverra
+        ullamcorper sodales. Nunc velit ligula, hendrerit vitae augue in, ornare venenatis erat. Vivamus sed est eget
+        dolor malesuada sagittis. Nulla non iaculis sapien. Etiam malesuada maximus leo, vel pellentesque risus commodo
+        quis. Nullam sit amet molestie lorem. In ipsum justo, aliquam quis dolor eget, faucibus malesuada mi. Morbi
+        congue malesuada neque eu eleifend. Integer nunc turpis, bibendum vel aliquam id, rutrum sit amet risus.
+        Maecenas sem turpis, ultrices vel tristique eget, tempus sed ante. Cras venenatis mattis porta. Donec rhoncus ut
+        ex ut egestas.
+    </p>
+    <p>
+        Donec porttitor imperdiet purus, vel lacinia orci. Proin dapibus lectus a massa auctor, sit amet dignissim justo
+        fringilla. Pellentesque eget odio quis ex rhoncus malesuada vel lacinia ex. Aliquam sollicitudin, libero non
+        sodales dignissim, orci sem semper dui, nec viverra purus nisl id est. Fusce sit amet imperdiet justo, at
+        sagittis orci. Suspendisse at velit sapien. Pellentesque suscipit tortor fermentum aliquam lobortis.
+    </p>
+</div>
+<script>
+    var recorder = new Recorder(),
+        player = new Player();
+
+    player.onFinish = function () {
+        alert('finish');
+    }
+
+    recorder.start();
+
+    document.getElementById('player-start').addEventListener('click', function () {
+        player.setStore(recorder.getStore());
+        player.play();
+    });
+</script>
+</body>
+</html>

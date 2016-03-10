@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="gyro.js"></script>
+</head>
+<body>
+    <div id="log"></div>
+    <div id="logBody"></div>
+    <div style="position: absolute; left: 100px; right: 120px; border:1px solid black; width: 0px; height: 0px;"></div>
+    <script>
+        var element = document.getElementById('log');
+        var logBody = document.getElementById('logBody');
+        var maxX = 0;
+        var maxY = 0;
+        var maxZ = 0;
+        var movesList = [];
+
+        window.addEventListener('devicemotion', function(event) {
+//            ax = Math.round(Math.abs(event.accelerationIncludingGravity.x * 1));
+//            ay = Math.round(Math.abs(event.accelerationIncludingGravity.y * 1));
+//            az = Math.round(Math.abs(event.accelerationIncludingGravity.z * 1));
+            ai = Math.round(event.interval * 100) / 100;
+            rR = event.rotationRate;
+
+//            if(maxX < rR.alpha) {
+//                maxX = rR.alpha;
+//            }
+
+//            element.innerHTML = [
+//                Number(rR.alpha).toFixed('3'),
+//                Number(rR.beta).toFixed('3'),
+//                Number(rR.gamma).toFixed('3'),
+//                    ai
+//            ].join(', ');
+
+            movesList.push({
+                x: parseInt(rR.alpha * 1000 / 100) / 10,
+                y: parseInt(rR.beta * 1000 / 100) / 10,
+                z: parseInt(rR.gamma * 1000 / 100) / 10,
+                interval: ai
+            });
+
+//            console.log(rR.alpha, rR.beta, rR.gamma);
+        });
+
+        function convert2CoordinatesList(movesList) {
+            var result = [];
+
+            movesList.forEach(function (obj, index) {
+                if (index > 0) {
+                    var prevResult = result[result.length - 1];
+                    var prevCoordinate = movesList[index - 1];
+
+                    if (Number(obj.y).toFixed(1) !== Number(prevCoordinate.y).toFixed(1) ||
+                            Number(obj.x).toFixed(1) !== Number(prevCoordinate.x).toFixed(1)
+                    ) {
+                        result.push({
+                            y: prevResult.y - obj.y * 3,
+                            x: prevResult.x - obj.x * 3
+                        });
+                    }
+                } else {
+                    result.push({y: 180, x: 200});
+                }
+            });
+
+            return result;
+        }
+
+        setInterval(function () {
+            var coords = this.convert2CoordinatesList(movesList);
+
+            logBody.innerHTML = coords.map(function (item) {
+                return '<div style="position: absolute; left: ' + item.y + 'px; top: ' + item.x + 'px; border:1px solid black; width: 0px; height: 0px;"></div>';
+
+//                return item.y + ', ' + item.z;
+            }).join('')
+        }, 1000);
+
+
+        gyro.startTracking(function(o) {
+
+            element.innerHTML = [
+                o.x, o.y, o.z
+            ].join(', ');
+
+            // o.x, o.y, o.z for accelerometer
+            // o.alpha, o.beta, o.gamma for gyro
+        });
+    </script>
+</body>
+</html>

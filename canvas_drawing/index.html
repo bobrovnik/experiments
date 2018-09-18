@@ -16,9 +16,18 @@
 <canvas id="myCanvas">
 </canvas>
 <script>
-    var socket = io();
-    var drawing = new Drawing();
-    drawing.init(document.getElementById('myCanvas'));
+    //    var socket = io();
+    //    var drawing = new Drawing();
+    //    drawing.init(document.getElementById('myCanvas'));
+
+    function method1() {
+        console.log(this);
+    }
+
+    var result = new method1({b:12});
+
+    console.log(result);
+
 </script>
 </body>
 </html>

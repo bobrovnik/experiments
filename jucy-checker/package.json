@@ -1,0 +1,12 @@
+{
+  "name": "jucy-checker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "jsdom": "^11.3.0",
+    "node-schedule": "^1.2.5",
+    "sendmail": "^1.2.0",
+    "winston": "^2.4.0"
+  }
+}
